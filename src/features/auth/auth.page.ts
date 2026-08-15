@@ -10,12 +10,15 @@ export class AuthPage extends BasePage {
     return '/'
   }
 
+  // Las etiquetas "Username"/"Password" no tienen asociación programática
+  // (sin `for`/`id`/aria-*) con sus inputs, así que getByLabel nunca resuelve;
+  // se usa el placeholder, que sí es estable (confirmado en TEST_PLAN.md).
   private get usernameInput() {
-    return this.page.getByLabel('Username')
+    return this.page.getByPlaceholder('standard_user')
   }
 
   private get passwordInput() {
-    return this.page.getByLabel('Password')
+    return this.page.getByPlaceholder('••••••••')
   }
 
   private get signInButton() {
