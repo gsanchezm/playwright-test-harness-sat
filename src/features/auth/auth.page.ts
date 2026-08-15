@@ -29,8 +29,11 @@ export class AuthPage extends BasePage {
     return this.page.getByRole('alert')
   }
 
+  // La etiqueta visible ("Standard") no es el username ("standard_user");
+  // solo coincide con el atributo title, que el nombre accesible ignora
+  // cuando hay texto visible. Se usa el data-testid, que sí lo expone.
   private quickLoginButton(persona: string) {
-    return this.page.getByRole('button', { name: persona, exact: true })
+    return this.page.getByTestId(`user-${persona}`)
   }
 
   async expectLoaded(): Promise<void> {
