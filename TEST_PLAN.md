@@ -71,7 +71,7 @@ Shared: `src/shared/MenuPage.ts` for the top nav (Catalog/Checkout/Profile/Logou
 | T10 | ui | catalog | regression | Customize-modal "Add to Cart" adds the pizza that was opened, not a different one | logged in | Cart line matches the pizza whose modal was opened | no | `catalog.spec.ts` | UI probe (bug observed: Four Cheese modal added Margherita) |
 | T11 | api | catalog | smoke | `GET /api/pizzas` with valid bearer + `X-Country-Code` returns catalog | valid token | 200, `pizzas[]` with id/name/price/currency | no | `catalog.service.ts`, `catalog.api.spec.ts` | probe (confirmed) |
 | T12 | api | catalog | regression | `GET /api/pizzas` without `X-Country-Code` | valid token | 400 | no | `catalog.api.spec.ts` | inference (documented in spec) |
-| T13 | api | catalog | regression | `GET /api/pizzas` without bearer token | none | 401 | no | `catalog.api.spec.ts` | inference (documented in spec) |
+| T13 | api | catalog | regression | `GET /api/pizzas` without bearer token | none | 403 | no | `catalog.api.spec.ts` | probe (confirmed; spec docs said 401 but live API returns 403) |
 | T14 | ui | cart | smoke | Cart quantity +/- updates subtotal/total | item in cart | Totals recalculate correctly | no | `cart.page.ts`, `cart.spec.ts` | UI probe |
 | T15 | api | cart | smoke | `GET /api/cart` with valid bearer + country header returns current cart | valid token, seeded cart | 200, `CartResponse` shape | no | `cart.service.ts`, `cart.api.spec.ts` | inference (schema in spec, not body-probed) |
 | T16 | api | cart | regression | `DELETE /api/cart/items/{item_id}` removes a line | valid token, seeded cart | 200/204, item no longer in `GET /api/cart` | no | `cart.api.spec.ts` | inference (documented in spec) |
